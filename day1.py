@@ -14,10 +14,7 @@ def process(translate=False):
     numbers = {'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
                'six': 6, 'seven': 7, 'eight': 8, 'nine': 9}
     with open('day1.txt', 'r', encoding="ascii") as file:
-        while True:
-            line = file.readline()
-            if not line:
-                break
+        for line in file.readlines():
             nums = []
             for i, d_i in enumerate(line):
                 for n_i, v_i in numbers.items():
