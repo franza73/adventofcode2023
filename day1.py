@@ -20,11 +20,11 @@ def process(translate=False):
                 break
             nums = []
             for i, d_i in enumerate(line):
-                for n_i in numbers:
-                    if line[i].isdigit():
+                for n_i, v_i in numbers.items():
+                    if d_i.isdigit():
                         nums += [int(d_i)]
                     elif translate and line[i:].startswith(n_i):
-                        nums += [numbers[n_i]]
+                        nums += [v_i]
             total += nums[0]*10 + nums[-1]
     return total
 
