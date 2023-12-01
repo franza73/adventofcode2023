@@ -17,10 +17,12 @@ def process(translate=False):
         for line in file.readlines():
             nums = []
             for i, d_i in enumerate(line):
+                if d_i.isdigit():
+                    nums += [int(d_i)]
+                if not translate:
+                    continue
                 for n_i, v_i in numbers.items():
-                    if d_i.isdigit():
-                        nums += [int(d_i)]
-                    elif translate and line[i:].startswith(n_i):
+                    if line[i:].startswith(n_i):
                         nums += [v_i]
             total += nums[0]*10 + nums[-1]
     return total
