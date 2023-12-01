@@ -19,10 +19,10 @@ def process(translate=False):
             if not line:
                 break
             nums = []
-            for i in range(len(line)):
+            for i, d_i in enumerate(line):
                 for n_i in numbers:
                     if line[i].isdigit():
-                        nums += [int(line[i])]
+                        nums += [int(d_i)]
                     elif translate and line[i:].startswith(n_i):
                         nums += [numbers[n_i]]
             total += nums[0]*10 + nums[-1]
