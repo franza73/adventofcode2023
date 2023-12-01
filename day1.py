@@ -6,9 +6,9 @@ Advent of code day 1 - 2023
 
 def process(translate=False):
     '''
-    Read numbers from with and without translation of names of numbers.
+    Read numbers from input with and without translation of names of numbers.
     Produces the a total sum that depends on first and last number found
-    on the file.
+    on each line of the file.
     '''
     total = 0
     numbers = {'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
