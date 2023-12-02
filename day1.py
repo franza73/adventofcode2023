@@ -4,7 +4,7 @@ Advent of code day 1 - 2023
 '''
 
 
-def process(translate=False):
+def process(data_file, translate=False):
     '''
     Read numbers from input with and without translation of names of numbers.
     Produces the a total sum that depends on first and last number found
@@ -13,7 +13,7 @@ def process(translate=False):
     total = 0
     numbers = {'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
                'six': 6, 'seven': 7, 'eight': 8, 'nine': 9}
-    with open('day1.txt', 'r', encoding="ascii") as file:
+    with open(data_file, 'r', encoding="ascii") as file:
         for line in file.readlines():
             nums = []
             for i, d_i in enumerate(line):
@@ -28,5 +28,15 @@ def process(translate=False):
     return total
 
 
-print('First solution:', process())
-print('Second solution:', process(True))
+def test_number_translation():
+    '''
+    Test reading numbers and number names
+    '''
+    assert process('day1a.txt') == 142
+    assert process('day1b.txt', True) == 281
+
+
+if __name__ == "__main__":
+    FILE = 'day1.txt'
+    print('First solution:', process(FILE))
+    print('Second solution:', process(FILE, True))

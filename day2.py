@@ -4,7 +4,7 @@ Advent of code day 2 - 2023
 '''
 
 
-def process():
+def process(input_file):
     '''
     Read game results and calculate a score based on the number of
     valid games.
@@ -12,7 +12,7 @@ def process():
     total = 0
     power = 0
     limits = {'red': 13, 'green': 14, 'blue': 15}
-    with open('day2.txt', 'r', encoding="ascii") as file:
+    with open(input_file, 'r', encoding="ascii") as file:
         for line in file.readlines():
             game, line = line.split(':')
             game = int(game.split()[1])
@@ -30,6 +30,16 @@ def process():
     return total, power
 
 
-sum_of_ids, total_power = process()
-print('First solution:', sum_of_ids)
-print('Second solution:', total_power)
+def test_process():
+    '''
+    Test the problem assumptions
+    '''
+    sum_of_ids_test, total_power_test = process('day2a.txt')
+    assert sum_of_ids_test == 8
+    assert total_power_test == 2286
+
+
+if __name__ == "__main__":
+    sum_of_ids, total_power = process('day2.txt')
+    print('First solution:', sum_of_ids)
+    print('Second solution:', total_power)
