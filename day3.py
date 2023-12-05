@@ -7,6 +7,7 @@ from itertools import product
 
 
 def process_schematic(input_file):
+    # pylint: disable=too-many-locals
     '''
     Process schematic
     '''
@@ -17,13 +18,24 @@ def process_schematic(input_file):
                 res.add((i+d_x, j+d_y))
         return res
 
-    mat = []
+    def calculate_gear_ratios():
+        gear_ratios = 0
+        for k in gears:
+            if len(gears[k]) == 2:
+                gear_ratios += gears[k][0] * gears[k][1]
+        return gear_ratios
+
+    def read_matrix():
+        mat = []
+        with open(input_file, 'r', encoding="ascii") as file:
+            for line in file.readlines():
+                mat += [list(line.strip())]
+        matx, maty = len(mat), len(mat[0])
+        return mat, matx, maty
+
+    mat, matx, maty = read_matrix()
     total = 0
     gears = defaultdict(list)
-    with open(input_file, 'r', encoding="ascii") as file:
-        for line in file.readlines():
-            mat += [list(line.strip())]
-    matx, maty = len(mat), len(mat[0])
     for i in range(maty):
         current = ''
         neigh = False
@@ -48,11 +60,7 @@ def process_schematic(input_file):
             total += int(current)
             if this_gear:
                 gears[this_gear] += [int(current)]
-    gear_ratios = 0
-    for k in gears:
-        if len(gears[k]) == 2:
-            gear_ratios += gears[k][0] * gears[k][1]
-    return total, gear_ratios
+    return total, calculate_gear_ratios()
 
 
 def test_process_schematic():
