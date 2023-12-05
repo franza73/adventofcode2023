@@ -32,7 +32,7 @@ def process_scratchcards(input_file):
     return total, score
 
 
-def test_process():
+def test_process_scratchpads():
     '''
     Test the problem assumptions
     '''
