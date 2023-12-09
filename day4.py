@@ -2,7 +2,7 @@
 '''
 Advent of code day 4 - 2023
 '''
-from collections import deque
+from collections import Counter
 
 
 def process_scratchcards(input_file):
@@ -11,12 +11,12 @@ def process_scratchcards(input_file):
     '''
     total = 0
     scores = {}
-    todo = deque()
+    todo = Counter()
     with open(input_file, 'r', encoding="ascii") as file:
         for line in file.readlines():
             card, line = line.strip().split(':')
             card = int(card.split()[1])
-            todo.append(card)
+            todo[card] = 1
             win, res = line.split('|')
             win, res = set(win.split()), set(res.split())
             common = len(win.intersection(res))
@@ -24,11 +24,10 @@ def process_scratchcards(input_file):
             if common != 0:
                 total += 2**(common - 1)
     score = 0
-    while todo:
-        card = todo.popleft()
-        score += 1
+    for card in sorted(todo.keys()):
+        score += todo[card]
         for new_card in range(card+1, card+scores[card]+1):
-            todo.append(new_card)
+            todo[new_card] += todo[card]
     return total, score
 
 
