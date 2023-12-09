@@ -3,12 +3,16 @@
 Advent of code day 6 - 2023
 '''
 import re
+from math import sqrt
 
 
 def process_race_data(input_file):
     '''
     Process race data
     '''
+    def cnt(t_i, d_i):
+        delta = sqrt(t_i**2 - 4.0*d_i - 0.001)
+        return int(t_i / 2 + delta / 2) - int(t_i / 2 - delta / 2)
     time = []
     distance = []
     time_merged = distance_merged = 0
@@ -25,19 +29,9 @@ def process_race_data(input_file):
                 distance = list(map(int, distance))
     prod = 1
     for t_i, d_i in zip(time, distance):
-        cnt = 0
-        for c_i in range(1, t_i + 1):
-            if c_i*(t_i - c_i) > d_i:
-                cnt += 1
-        prod *= cnt
-    prod_merged = 1
+        prod *= cnt(t_i, d_i)
     t_i, d_i = time_merged, distance_merged
-    cnt = 0
-    for c_i in range(1, t_i + 1):
-        if c_i*(t_i - c_i) > d_i:
-            cnt += 1
-    prod_merged *= cnt
-    return prod, prod_merged
+    return prod, cnt(t_i, d_i)
 
 
 def test_process_race_data():
