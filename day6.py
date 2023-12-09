@@ -11,8 +11,12 @@ def process_race_data(input_file):
     Process race data
     '''
     def cnt(t_i, d_i):
-        delta = sqrt(t_i**2 - 4.0*d_i - 0.001)
-        return int(t_i / 2 + delta / 2) - int(t_i / 2 - delta / 2)
+        delta = sqrt(t_i**2 - 4*d_i)
+        c_1 = t_i / 2 + delta / 2
+        c_2 = int(t_i / 2 - delta / 2)
+        if c_1 - int(c_1) < 0.01:
+            return int(c_1) - c_2 - 1
+        return int(c_1) - c_2
     time = []
     distance = []
     time_merged = distance_merged = 0
@@ -21,12 +25,12 @@ def process_race_data(input_file):
             line = line.strip()
             if 'Time' in line:
                 time = re.findall(r'\d+', line)
-                time_merged = int(''.join(time))
-                time = list(map(int, time))
+                time_merged = float(''.join(time))
+                time = list(map(float, time))
             elif 'Distance' in line:
                 distance = re.findall(r'\d+', line)
-                distance_merged = int(''.join(distance))
-                distance = list(map(int, distance))
+                distance_merged = float(''.join(distance))
+                distance = list(map(float, distance))
     prod = 1
     for t_i, d_i in zip(time, distance):
         prod *= cnt(t_i, d_i)
