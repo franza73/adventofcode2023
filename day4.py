@@ -18,7 +18,7 @@ def process_scratchcards(input_file):
             card = int(card.split()[1])
             todo.append(card)
             win, res = line.split('|')
-            win, res = set(map(int, win.split())), set(map(int, res.split()))
+            win, res = set(win.split()), set(res.split())
             common = len(win.intersection(res))
             scores[card] = common
             if common != 0:
