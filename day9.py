@@ -43,12 +43,12 @@ def test_process_differences():
     '''
     Test the problem assumptions
     '''
-    indexa, indexb = process_differences('day9a.txt')
-    assert indexa == 114
-    assert indexb == 2
+    t_first0, t_last0 = process_differences('day9a.txt')
+    assert t_first0 == 114
+    assert t_last0 == 2
 
 
 if __name__ == "__main__":
-    indexc, indexd = process_differences('day9.txt')
-    print('First solution:', indexc)
-    print('Second solution:', indexd)
+    t_first, t_last = process_differences('day9.txt')
+    print('First solution:', t_first)
+    print('Second solution:', t_last)
