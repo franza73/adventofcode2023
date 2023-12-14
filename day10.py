@@ -37,16 +37,16 @@ def read_maze(input_file):
     return lines, s_n_i, s_n_j, s_n_d, d_guess_s
 
 
-def find_loop(lines, n_i, n_j, d_n, d_guess_s):
+def find_loop(lines, n_i, n_j, n_d, d_guess_s):
     '''
     Finds which points are on the loop
     '''
     loop = set()
     cnt = 1
     while True:
-        step = d_n + lines[n_i][n_j]
+        step = n_d + lines[n_i][n_j]
         if step in nxt:
-            d_n = nxt[step]
+            n_d = nxt[step]
             d_x, d_y = dirs[nxt[step]]
             loop.add((n_i, n_j))
             n_i, n_j = n_i+d_x, n_j+d_y

@@ -1,10 +1,6 @@
 #!/usr/local/bin/python3
 '''
 Advent of code day 11 - 2023
-
-TODO
-. calculate corrected distances between pairs of galaxies
-
 '''
 from bisect import bisect
 from itertools import combinations
