@@ -33,20 +33,19 @@ def process_image(input_file):
     '''
     Process the image to produce the total distance between pairs of galaxies
     '''
-    def calculate_total(cte=1):
+    def _total(cte=1):
         if cte > 1:
             cte -= 1
-        l_g = len(galaxies)
         total = 0
-        for i, j in combinations(range(l_g), 2):
-            a_x, a_y = galaxies[i]
-            b_x, b_y = galaxies[j]
+        for g_i, g_j in combinations(galaxies, 2):
+            a_x, a_y = g_i
+            b_x, b_y = g_j
             d_x = (bisect(empty_x, b_x) - bisect(empty_x, a_x))*cte + b_x - a_x
             d_y = (bisect(empty_y, b_y) - bisect(empty_y, a_y))*cte + b_y - a_y
             total += abs(d_x) + abs(d_y)
         return total
     galaxies, empty_x, empty_y = read_image(input_file)
-    return calculate_total(), calculate_total(1000000)
+    return _total(), _total(1000000)
 
 
 def test_process_image():
