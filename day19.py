@@ -58,7 +58,7 @@ def process_ranges(workflows):
     Break the full ranges for all variables into regions that satisfy
     the workflow constraints.
     '''
-    ranges = {i: [[1, 4000]] for i in 'xmas'}
+    ranges = {i: [1, 4000] for i in 'xmas'}
     todo = [(ranges, 'in')]
     total = 0
     while todo:
@@ -66,7 +66,7 @@ def process_ranges(workflows):
         if prem == 'A':
             prod = 1
             for i in 'xmas':
-                prod *= r_i[i][0][1] - r_i[i][0][0] + 1
+                prod *= r_i[i][1] - r_i[i][0] + 1
             total += prod
             continue
         if prem == 'R':
@@ -79,14 +79,12 @@ def process_ranges(workflows):
             rule, prem = wf_i.split(':')
             r_i_a, r_i_b = r_i.copy(), r_i.copy()
             var, oper, value = rule[0], rule[1], int(rule[2:])
-            r_i_a[var] = []
-            r_i_b[var] = []
             if oper == '<':
-                r_i_a[var] += [[r_i[var][0][0], value-1]]
-                r_i_b[var] += [[value, r_i[var][0][1]]]
+                r_i_a[var] = [r_i[var][0], value-1]
+                r_i_b[var] = [value, r_i[var][1]]
             elif oper == '>':
-                r_i_b[var] += [[r_i[var][0][0], value]]
-                r_i_a[var] += [[value+1, r_i[var][0][1]]]
+                r_i_b[var] = [r_i[var][0], value]
+                r_i_a[var] = [value+1, r_i[var][1]]
             todo.append((r_i_a, prem))
             r_i = r_i_b.copy()
     return total
